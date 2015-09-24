@@ -10,13 +10,13 @@ WebmConverter::WebmConverter()
     _seg_start = 0;
     _seg_end = 0;
     _seg_len = 5;
-    _final_script = "ffmpeg ";
+    _exec_script = "ffmpeg ";
 }
 
 void WebmConverter::convert()
 {
     QProcess converter_pr;
-    converter_pr.execute(_final_script);
+    converter_pr.execute(_exec_script);
 }
 
 int WebmConverter::make_conv_file()

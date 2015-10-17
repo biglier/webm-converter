@@ -14,9 +14,14 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    webmconverter.cpp
+    webmconverter.cpp \
+    aboutwindow.cpp \
+    iomodule.cpp
 
 HEADERS  += mainwindow.h \
-    webmconverter.h
+    webmconverter.h \
+    aboutwindow.h \
+    iomodule.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    aboutwindow.ui

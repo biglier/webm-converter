@@ -10,18 +10,21 @@ WebmConverter::WebmConverter()
     _seg_start = 0;
     _seg_end = 0;
     _seg_len = 5;
+    _codec = "-c:vp8";
     _exec_script = "ffmpeg ";
 }
 
-void WebmConverter::convert()
+int WebmConverter::convert()
 {
     QProcess converter_pr;
     converter_pr.execute(_exec_script);
+
+    return converter_pr.exitCode();
 }
 
 int WebmConverter::make_conv_file()
 {
-    QFile conv_file("tmp.k");
+    QFile conv_file("tmp.config");
 
     conv_file.open(QIODevice::ReadWrite);
 
@@ -108,6 +111,11 @@ void WebmConverter::set_qmax(qint32 qmax)
     _qmax = qmax;
 }
 
+void WebmConverter::set_codec(QString codec)
+{
+    _codec = codec;
+}
+
 qint32 WebmConverter::get_qmax()
 {
     return _qmax;
@@ -115,7 +123,7 @@ qint32 WebmConverter::get_qmax()
 
 void WebmConverter::create_exec_script()
 {
-    _exec_script += "-ss " + QString::number(_seg_start) +
-            " -i " + _base_filename + " " + "-t " + QString::number(_seg_len) +
-            " -crf " + QString::number(_crf) + " " + _output_filename;
+    _exec_script += " -i " + _base_filename + " -ss " + QString::number(_seg_start) +
+            " " + "-to " + QString::number(_seg_end) +
+            " -crf " + QString::number(_crf) + " -c:v " + _codec + " " + _output_filename;
 }
